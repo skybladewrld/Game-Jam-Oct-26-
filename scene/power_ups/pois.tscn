@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dim555wtufsvq"]
+
+[ext_resource type="Script" uid="uid://dlm1ocattyuaa" path="res://scripts/collectable.gd" id="1_21a8h"]
+[ext_resource type="Texture2D" uid="uid://cwo2r0lgy2r42" path="res://icon.svg" id="2_wqisj"]
+
+[sub_resource type="Animation" id="Animation_wqisj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_31pug"]
+resource_name = "pick_up"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_abefd"]
+_data = {
+&"RESET": SubResource("Animation_wqisj"),
+&"pick_up": SubResource("Animation_31pug")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghotr"]
+size = Vector2(47, 120)
+
+[node name="pois" type="StaticBody2D" unique_id=826541028 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_21a8h")
+animation_player = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://dlm1ocattyuaa"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1918226453]
+libraries/ = SubResource("AnimationLibrary_abefd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=39393046]
+texture = ExtResource("2_wqisj")
+region_enabled = true
+region_rect = Rect2(32.00003, 0, 42.399994, 128)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=800945388]
+collision_layer = 2
+collision_mask = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1745015511]
+position = Vector2(-1.5, -2)
+shape = SubResource("RectangleShape2D_ghotr")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

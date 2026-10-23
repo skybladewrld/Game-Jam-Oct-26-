@@ -1,0 +1,4 @@
+res://scene/world.tscn
+res://scripts/character_body_2d.gd
+res://scripts/enemy.gd
+res://scripts/global.gd

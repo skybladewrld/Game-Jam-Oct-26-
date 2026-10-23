@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://i0t4illj7qkl"]
+
+[ext_resource type="Script" uid="uid://des08cso0t885" path="res://scripts/enemy.gd" id="1_q62mg"]
+[ext_resource type="Texture2D" uid="uid://cwo2r0lgy2r42" path="res://icon.svg" id="2_qfuc4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_synuv"]
+size = Vector2(77, 76)
+
+[node name="crab" type="CharacterBody2D" unique_id=1109538823 node_paths=PackedStringArray("stun", "posi_damge") groups=["enemy"]]
+script = ExtResource("1_q62mg")
+stun = NodePath("stun")
+posi_damge = NodePath("pois_damage")
+metadata/_custom_type_script = "uid://des08cso0t885"
+
+[node name="attack_range" type="Area2D" parent="." unique_id=1432322602]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_range" unique_id=944556677]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_synuv")
+
+[node name="stun" type="Timer" parent="." unique_id=1106921790]
+wait_time = 0.5
+one_shot = true
+
+[node name="pois_damage" type="Timer" parent="." unique_id=816465628]
+wait_time = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2123405933]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qfuc4")
+region_enabled = true
+region_rect = Rect2(66.400024, 68.79999, 61.599976, 59.200012)
+
+[connection signal="body_entered" from="attack_range" to="." method="_on_attack_range_body_entered"]
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
+[connection signal="timeout" from="pois_damage" to="." method="_on_pois_damage_timeout"]

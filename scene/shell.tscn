@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://drh0l0t7rcjlf"]
+
+[ext_resource type="Script" uid="uid://bprdu53amp6ep" path="res://scripts/shell.gd" id="1_ejktv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghotr"]
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_5unbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_ejktv"]
+resource_name = "size_big"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_m7b66"]
+resource_name = "size_small"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5unbk"]
+_data = {
+&"RESET": SubResource("Animation_5unbk"),
+&"size_big": SubResource("Animation_ejktv"),
+&"size_small": SubResource("Animation_m7b66")
+}
+
+[node name="shell" type="StaticBody2D" unique_id=759120934]
+collision_layer = 3
+collision_mask = 5
+script = ExtResource("1_ejktv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426435940]
+shape = SubResource("RectangleShape2D_ghotr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1616701335]
+libraries/ = SubResource("AnimationLibrary_5unbk")

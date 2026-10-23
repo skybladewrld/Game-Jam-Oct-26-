@@ -1,0 +1,13 @@
+CollisionShape2D
+Area2D
+Sprite2D
+AnimationPlayer
+colect
+StaticBody2D
+enemy
+Timer
+Node
+AnimatedSprite2D
+CharacterBody2D
+Camera2D
+TileMap
