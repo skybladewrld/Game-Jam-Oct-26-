@@ -1,4 +1,9 @@
-res://scene/world.tscn
 res://scripts/character_body_2d.gd
-res://scripts/enemy.gd
+res://scene/power_ups/pois.tscn
+res://scene/ell.tscn
+res://scripts/ray_cast.gd
+res://scene/ray_cast.tscn
+res://scene/world.tscn
+res://scripts/collectable.gd
 res://scripts/global.gd
+res://scene/player.tscn

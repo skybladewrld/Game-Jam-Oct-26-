@@ -5,24 +5,61 @@
 [ext_resource type="PackedScene" uid="uid://drh0l0t7rcjlf" path="res://scene/shell.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dim555wtufsvq" path="res://scene/power_ups/pois.tscn" id="4_m5mgf"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghotr"]
+size = Vector2(25, 649.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isfxi"]
+size = Vector2(1141, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7vel"]
+size = Vector2(23, 643)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj3vx"]
+size = Vector2(1136, 22)
+
 [node name="world" type="Node2D" unique_id=117567658]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2112950849]
 position = Vector2(66, 4)
 
+[node name="Area2D" type="Area2D" parent="Camera2D" unique_id=1052642576]
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Area2D" unique_id=1889547720]
+position = Vector2(-560.5, -1.25)
+shape = SubResource("RectangleShape2D_ghotr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Camera2D/Area2D" unique_id=232218834]
+position = Vector2(-2.5, 316.5)
+shape = SubResource("RectangleShape2D_isfxi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Camera2D/Area2D" unique_id=1571074717]
+position = Vector2(563.5, 0.5)
+shape = SubResource("RectangleShape2D_v7vel")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Camera2D/Area2D" unique_id=1155226447]
+position = Vector2(-3, -313)
+shape = SubResource("RectangleShape2D_vj3vx")
+
 [node name="TileMap" type="TileMap" parent="." unique_id=197361042]
 format = 2
 
 [node name="ell" parent="." unique_id=1156742045 node_paths=PackedStringArray("target") instance=ExtResource("2_txmk2")]
-position = Vector2(-285, 114)
+position = Vector2(804, -31)
 target = NodePath("../player")
 froce = 60
 
 [node name="player" parent="." unique_id=901365435 instance=ExtResource("1_pjass")]
-position = Vector2(-309, -231)
+position = Vector2(-279, 105)
 
 [node name="shell" parent="." unique_id=759120934 instance=ExtResource("3_w4qq1")]
 position = Vector2(160, -11)
 
 [node name="pois" parent="." unique_id=826541028 instance=ExtResource("4_m5mgf")]
-position = Vector2(-94, -226)
+position = Vector2(-368, 407)
+
+[node name="ell2" parent="." unique_id=126612821 node_paths=PackedStringArray("target") instance=ExtResource("2_txmk2")]
+position = Vector2(823, -422)
+target = NodePath("../player")
+froce = 60

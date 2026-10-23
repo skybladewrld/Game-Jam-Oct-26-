@@ -19,13 +19,11 @@ var cool_down_pos = 0
 
 func _ready() -> void:
 	posi_damge.start()
-	print(hp)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if stun.is_stopped():
-		path_finding() 
+	velocity =path_finding() 
 	
 	if knok_back_timer > 0:
 		velocity = knok_back
@@ -34,12 +32,17 @@ func _process(delta: float) -> void:
 		knok_back = Vector2.ZERO
 	move_and_slide()
 
-func path_finding() -> void:
+func path_finding() -> Vector2:
 	var direction = (target.position - position)
-	if direction.length()  <= acttack_distance and !global.invs:
-		velocity = direction.normalized() * SPEED
-	else:
-		velocity = Vector2.ZERO 
+	var speed :Vector2 
+	if direction.length() > acttack_distance:
+		return Vector2.ZERO
+	if global.invs:
+		return Vector2.ZERO
+	if !stun.is_stopped():
+		return Vector2.ZERO
+	speed = direction.normalized() * SPEED
+	return speed
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -62,3 +65,6 @@ func _on_pois_damage_timeout() -> void:
 	if cool_down_pos != 0 :
 		cool_down_pos -= 1
 		global.tack_damage(self ,pois_damage)
+
+func pos_revela():
+	pass

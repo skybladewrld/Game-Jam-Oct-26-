@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://des08cso0t885" path="res://scripts/enemy.gd" id="1_tqq43"]
 [ext_resource type="Texture2D" uid="uid://cwo2r0lgy2r42" path="res://icon.svg" id="2_r8xgy"]
+[ext_resource type="PackedScene" uid="uid://cog65fekxuw45" path="res://scene/ray_cast.tscn" id="3_r8xgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7vel"]
 size = Vector2(63, 65)
@@ -47,6 +48,8 @@ one_shot = true
 
 [node name="pois_damage" type="Timer" parent="." unique_id=954785516]
 wait_time = 1.5
+
+[node name="pos" parent="." unique_id=1788432133 instance=ExtResource("3_r8xgy")]
 
 [connection signal="body_entered" from="attack_range" to="." method="_on_attack_range_body_entered"]
 [connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]

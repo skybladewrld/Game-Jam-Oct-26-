@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cog65fekxuw45"]
+
+[ext_resource type="Script" uid="uid://cvnjer2gtkchn" path="res://scripts/ray_cast.gd" id="1_ijiyn"]
+[ext_resource type="Texture2D" uid="uid://cwo2r0lgy2r42" path="res://icon.svg" id="1_ryrcw"]
+
+[node name="pos" type="Marker2D" unique_id=1788432133]
+script = ExtResource("1_ijiyn")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1506388182]
+target_position = Vector2(0, 173)
+collision_mask = 512
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=590861377]
+
+[node name="arrow" type="Sprite2D" parent="." unique_id=1202708066]
+position = Vector2(0, 1.0000001)
+scale = Vector2(1, 0.171875)
+texture = ExtResource("1_ryrcw")
+offset = Vector2(-15, 0)
+region_enabled = true
+region_rect = Rect2(44.80002, 0, 30.399994, 128)
