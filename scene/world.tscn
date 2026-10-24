@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cvt1mvn0recvy"]
 
+[ext_resource type="PackedScene" uid="uid://b8jguxf1rrsmm" path="res://scene/squid_boss.tscn" id="1_m5mgf"]
 [ext_resource type="PackedScene" uid="uid://b8rxtfswa5y2s" path="res://scene/player.tscn" id="1_pjass"]
-[ext_resource type="PackedScene" uid="uid://cy1by123nask2" path="res://scene/ell.tscn" id="2_txmk2"]
 [ext_resource type="PackedScene" uid="uid://drh0l0t7rcjlf" path="res://scene/shell.tscn" id="3_w4qq1"]
 [ext_resource type="PackedScene" uid="uid://dim555wtufsvq" path="res://scene/power_ups/pois.tscn" id="4_m5mgf"]
 
@@ -18,6 +18,23 @@ size = Vector2(23, 643)
 size = Vector2(1136, 22)
 
 [node name="world" type="Node2D" unique_id=117567658]
+
+[node name="squid_boss" parent="." unique_id=1125706899 instance=ExtResource("1_m5mgf")]
+position = Vector2(-2, -202)
+
+[node name="TileMap" type="TileMap" parent="." unique_id=197361042]
+format = 2
+
+[node name="player" parent="." unique_id=901365435 instance=ExtResource("1_pjass")]
+position = Vector2(27, 141)
+
+[node name="pois" parent="." unique_id=826541028 instance=ExtResource("4_m5mgf")]
+position = Vector2(-368, 407)
+
+[node name="shell2" type="Node" parent="." unique_id=1364099112]
+
+[node name="shell2" parent="shell2" unique_id=1389718314 instance=ExtResource("3_w4qq1")]
+position = Vector2(276, 31)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2112950849]
 position = Vector2(66, 4)
@@ -41,25 +58,3 @@ shape = SubResource("RectangleShape2D_v7vel")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Camera2D/Area2D" unique_id=1155226447]
 position = Vector2(-3, -313)
 shape = SubResource("RectangleShape2D_vj3vx")
-
-[node name="TileMap" type="TileMap" parent="." unique_id=197361042]
-format = 2
-
-[node name="ell" parent="." unique_id=1156742045 node_paths=PackedStringArray("target") instance=ExtResource("2_txmk2")]
-position = Vector2(804, -31)
-target = NodePath("../player")
-froce = 60
-
-[node name="player" parent="." unique_id=901365435 instance=ExtResource("1_pjass")]
-position = Vector2(-279, 105)
-
-[node name="shell" parent="." unique_id=759120934 instance=ExtResource("3_w4qq1")]
-position = Vector2(160, -11)
-
-[node name="pois" parent="." unique_id=826541028 instance=ExtResource("4_m5mgf")]
-position = Vector2(-368, 407)
-
-[node name="ell2" parent="." unique_id=126612821 node_paths=PackedStringArray("target") instance=ExtResource("2_txmk2")]
-position = Vector2(823, -422)
-target = NodePath("../player")
-froce = 60

@@ -59,7 +59,7 @@ _data = {
 
 [node name="shell" type="StaticBody2D" unique_id=759120934]
 collision_layer = 3
-collision_mask = 5
+collision_mask = 1024
 script = ExtResource("1_ejktv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426435940]

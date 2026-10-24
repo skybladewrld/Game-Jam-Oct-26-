@@ -1,17 +1,18 @@
 extends CharacterBody2D
 class_name enemy
 
-
+@export var re_color:Timer
 @export var stun: Timer
 @export var posi_damge : Timer
 @export var sprite: AnimatedSprite2D
 @export var hp: float
-@export var target : CharacterBody2D 
+@onready var target  = get_parent().get_node("player")
 @export var SPEED :int
 @export var acttack_distance:int
 @export var froce :int = 250
 @export var duration :float = 0.1
 @export var damage :int =1
+
 var knok_back = Vector2(0 , 0)
 var knok_back_timer = 0
 var displacement : Vector2
@@ -30,6 +31,9 @@ func _process(delta: float) -> void:
 		knok_back_timer -= delta 
 	else:
 		knok_back = Vector2.ZERO
+
+	if hp <= 0:
+		queue_free()
 	move_and_slide()
 
 func path_finding() -> Vector2:
@@ -41,15 +45,17 @@ func path_finding() -> Vector2:
 		return Vector2.ZERO
 	if !stun.is_stopped():
 		return Vector2.ZERO
+	look_at(direction)
 	speed = direction.normalized() * SPEED
 	return speed
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	#if body.is_in_group("player"):
-		body.applay_knok_back( (target.global_position - position) , 250 , duration)
-		 # why can't I use  varible force 
-		global.tack_damage(body , damage)
+	body.applay_knok_back( (target.global_position - position) , 250 , duration)
+	body.color()
+	 # why can't I use  varible force 
+	global.tack_damage(body , damage)
 
 func applay_knok_back(drirction : Vector2 , force: float , duration):
 	#stun.start()
@@ -66,5 +72,10 @@ func _on_pois_damage_timeout() -> void:
 		cool_down_pos -= 1
 		global.tack_damage(self ,pois_damage)
 
-func pos_revela():
-	pass
+
+func _on_re_color_timeout() -> void:
+	modulate = Color(1.0, 1.0, 1.0, 1.0)
+	
+func color():
+	re_color.start()
+	modulate = Color(0.0, 0.0, 0.0, 1.0)

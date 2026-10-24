@@ -13,5 +13,6 @@ func _process(delta: float) -> void:
 	
 func tack_damage(body , damage) -> void:
 	body.hp -= damage
+	body.self_modulate = Color()
+	#body.re_color.strat()
 	print(body.hp)
-	
