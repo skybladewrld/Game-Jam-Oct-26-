@@ -4,10 +4,8 @@ enum buff_add{pois , box , camo , ink , hear}
 @export var animation_player : AnimationPlayer
 @export var buff: buff_add
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	
-	#if body.is_in_group("player"):
+
 		match buff:
 			buff_add.pois:
 				body.posion_skin_unlock  = true

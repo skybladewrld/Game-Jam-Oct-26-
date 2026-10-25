@@ -33,7 +33,6 @@ var camo_unlock : bool = false
 var ink_dash_unlock : bool = false
 @onready var mach_space: AnimatedSprite2D = $mach_space
 
-
 func _ready() -> void:
 	pass
 
@@ -47,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		if Input.is_action_just_pressed("escape"):
 			escape += 1
-	
+
 	if escape >= 15 :
 		stun = false
 		escape = 0
@@ -59,11 +58,11 @@ func _physics_process(delta: float) -> void:
 	player_rotate()
 	if knok_back_timer > 0:
 		velocity = knok_back
-		knok_back_timer -= delta 
+		knok_back_timer -= delta
 	else:
 		knok_back = Vector2.ZERO
 
-	if hp <= 0:# chnge to go back to home screen
+	if hp <= 0:
 		queue_free()
 
 	move_and_slide()
@@ -80,19 +79,18 @@ func dash() -> void:
 func movement() -> void:
 	var direction_x := Input.get_axis("left", "right")
 	if direction_x:
-		velocity.x= move_toward(velocity.x, SPEED * direction_x, decelration) 
+		velocity.x= move_toward(velocity.x, SPEED * direction_x, decelration)
 	else:
-		velocity.x = move_toward(velocity.x, 0, decelration) 
-######################################################
+		velocity.x = move_toward(velocity.x, 0, decelration)
 	var direction_y := Input.get_axis("up", "down")
 	if direction_y:
-		velocity.y= move_toward(velocity.y, SPEED * direction_y, decelration) 
+		velocity.y= move_toward(velocity.y, SPEED * direction_y, decelration)
 	else:
 		velocity.y = move_toward(velocity.y, 0, decelration)
-		
+
 	if idle_on:
 		animated_sprite_2d.play("idle")
-	
+
 func attack_block()-> void:
 	if Input.is_action_pressed("light_attack"):
 		animation_player.play("attack_light")
@@ -101,11 +99,11 @@ func attack_block()-> void:
 	if Input.is_action_pressed("hevey_attack"):
 		animation_player.play("hevey_attack")
 		strong_atack = true
-		
+
 	if Input.is_action_pressed("ult") and hit_count >= 10 :
 		animation_player.play("ult")
 		strong_atack = true
-		
+
 	if Input.is_action_pressed("block") and block_cool_down.is_stopped():
 		animation_player.play("block")
 		animated_sprite_2d.play("block")
@@ -114,7 +112,7 @@ func attack_block()-> void:
 		block_cool_down.start()
 
 func _on_dash_cool_down_timeout() -> void:
-	pass # Replace with function body.
+	pass
 
 const force = 500
 const duration = 0.2
@@ -126,11 +124,11 @@ func _on_attack_body_entered(body: Node2D) -> void:
 			damage_mult += 0.5
 		else:
 			damage_mult = 1
-		
+
 		if strong_atack:
-			body.stun.start(1.5) # 1.5 = stun amount
+			body.stun.start(1.5)
 		else:
-			pass #body.stun.start(0.5)
+			pass
 
 		global.tack_damage(body ,damage * damage_mult)
 		body.applay_knok_back( (body.global_position - position), force , duration )
@@ -143,19 +141,17 @@ func _on_attack_body_entered(body: Node2D) -> void:
 		body.color()
 	damage_mult = 1
 
-	
 func applay_knok_back(drirction : Vector2 , force: float , duration):
 	knok_back = drirction.normalized() * force
 	knok_back_timer = duration
 
 func power_buff():
 	if box_unlock:
-		animation_player.speed_scale = 2 # doubles speed of attack
-		animated_sprite_2d.speed_scale = 2 # doubles speed of animation
-
+		animation_player.speed_scale = 2
+		animated_sprite_2d.speed_scale = 2
 
 func change_size():
-	
+
 	if Input.is_action_just_pressed("change_size"):
 		if global.big_size:
 			animation_player.play("small_size")
@@ -169,18 +165,16 @@ func change_size():
 			SPEED = 150
 			dash_speed = 700
 			damage = 1
-			
+
 func invs():
 	if velocity == Vector2.ZERO and camo_unlock:
 		global.invs = true
 	else:
 		global.invs = false
 
-
 func _on_block_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		body.applay_knok_back( (body.global_position - position), force , duration )
-
 
 func ink_dash():
 	if ink_dash_unlock and !dash_cool_down.is_stopped():
@@ -188,7 +182,6 @@ func ink_dash():
 		var instance : Node =  preload("res://scene/black_ink.tscn").instantiate()
 		get_parent().add_child(instance)
 		instance.set_position(cur_postion)
-
 
 func _on_ult_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
@@ -198,11 +191,9 @@ func _on_ult_body_entered(body: Node2D) -> void:
 			damage_mult = 1
 		hit_count = 0
 		body.stun.start(2)
-		global.tack_damage(body ,damage * 2 * damage_mult) # ult does 2x damage than a normal attack
+		global.tack_damage(body ,damage * 2 * damage_mult)
 		body.applay_knok_back( (body.global_position - position), force * 2 , duration)
 	damage_mult = 1
-
-
 
 func player_rotate() -> void:
 	var direction_x := Input.get_axis("left", "right")
@@ -243,14 +234,12 @@ func player_rotate() -> void:
 func _on_block_cool_down_timeout() -> void:
 	pass
 
-
 func _on_idle_off_timeout() -> void:
 	idle_on = true
 
-
 func _on_re_color_timeout() -> void:
 	modulate = Color(1.0, 1.0, 1.0, 1.0)
-	
+
 func color():
 	re_color.start()
 	modulate = Color(0.0, 0.0, 0.0, 1.0)

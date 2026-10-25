@@ -14,10 +14,8 @@ var attack_on
 func _ready() -> void:
 	pass
 
-
-
 func _physics_process(delta: float) -> void:
-	if chose_attack.is_stopped() and restart_attack: 
+	if chose_attack.is_stopped() and restart_attack:
 		restart_attack = false
 		chose_attack.start()
 	if attack_on:
@@ -36,7 +34,6 @@ func _on_attack_2_timeout() -> void:
 	attack_on = true
 	stop_attack.start()
 
-	
 func _on_stop_attack_timeout() -> void:
 	attack_on = false
 	restart_attack = true
@@ -46,4 +43,3 @@ func _on_re_color_timeout() -> void:
 func color():
 	re_color.start()
 	modulate = Color(0.0, 0.0, 0.0, 1.0)
-	

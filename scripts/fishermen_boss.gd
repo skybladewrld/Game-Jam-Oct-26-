@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var chose_attack: Timer = $chose_attack
 
-@export var animation_player: AnimationPlayer 
+@export var animation_player: AnimationPlayer
 @onready var stop_attack: Timer = $stop_attack
 
 @onready var hook_1:StaticBody2D  = $hook_1
@@ -26,7 +26,6 @@ var hp = 10
 func _ready() -> void:
 	animation_player.play("move")
 
-	
 func _physics_process(delta: float) -> void:
 	del = delta
 	velocity = Vector2.ZERO
@@ -35,11 +34,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		hook_1.position = return_org
 		hook_1.rotation = return_rot
-		#tween.tween_property(hook_1 , "position" ,return_org , 1)
-	if chose_attack.is_stopped() and restart_attack: 
+	if chose_attack.is_stopped() and restart_attack:
 		restart_attack = false
 		chose_attack.start()
-	
+
 	if hp <= 0:
 		queue_free()
 
@@ -56,8 +54,6 @@ func _on_attack_2_timeout() -> void:
 	stop_attack.start()
 	speed = trap_speed
 
-
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	attack_on = false
 	global.tack_damage(body , 1)
@@ -68,17 +64,15 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func hook_direction(delta , speed):
 	var direction = (player.global_position - hook_1.global_position)
 	hook_1.rotation = direction.angle() + deg_to_rad(-90)
-	#tween.tween_property(hook_1 , "global_position" , player.global_position , 5)#direction.length() /speed )
-	hook_1.position += Vector2.from_angle(direction.angle())* speed * delta 
-
+	hook_1.position += Vector2.from_angle(direction.angle())* speed * delta
 
 func _on_stop_attack_timeout() -> void:
 	attack_on = false
 	restart_attack = true
-	
+
 func _on_re_color_timeout() -> void:
 	modulate = Color(1.0, 1.0, 1.0, 1.0)
-	
+
 func color():
 	re_color.start()
 	modulate = Color(0.0, 0.0, 0.0, 1.0)

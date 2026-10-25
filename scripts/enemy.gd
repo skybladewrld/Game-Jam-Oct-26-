@@ -21,14 +21,12 @@ var cool_down_pos = 0
 func _ready() -> void:
 	posi_damge.start()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	velocity =path_finding() 
-	
+	velocity =path_finding()
+
 	if knok_back_timer > 0:
 		velocity = knok_back
-		knok_back_timer -= delta 
+		knok_back_timer -= delta
 	else:
 		knok_back = Vector2.ZERO
 
@@ -38,7 +36,7 @@ func _process(delta: float) -> void:
 
 func path_finding() -> Vector2:
 	var direction = (target.position - position)
-	var speed :Vector2 
+	var speed :Vector2
 	if direction.length() > acttack_distance:
 		return Vector2.ZERO
 	if global.invs:
@@ -49,22 +47,17 @@ func path_finding() -> Vector2:
 	speed = direction.normalized() * SPEED
 	return speed
 
-
 func _on_attack_range_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("player"):
 	body.applay_knok_back( (target.global_position - position) , 250 , duration)
 	body.color()
-	 # why can't I use  varible force 
 	global.tack_damage(body , damage)
 
 func applay_knok_back(drirction : Vector2 , force: float , duration):
-	#stun.start()
 	knok_back = drirction.normalized() * force
 	knok_back_timer = duration
 
-
 func _on_stun_timeout() -> void:
-	pass # Replace with function body.
+	pass
 
 var pois_damage = 0.5
 func _on_pois_damage_timeout() -> void:
@@ -72,10 +65,9 @@ func _on_pois_damage_timeout() -> void:
 		cool_down_pos -= 1
 		global.tack_damage(self ,pois_damage)
 
-
 func _on_re_color_timeout() -> void:
 	modulate = Color(1.0, 1.0, 1.0, 1.0)
-	
+
 func color():
 	re_color.start()
 	modulate = Color(0.0, 0.0, 0.0, 1.0)
