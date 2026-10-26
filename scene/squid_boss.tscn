@@ -189,7 +189,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghotr"]
 size = Vector2(189, 234)
 
-[node name="squid_boss" type="CharacterBody2D" unique_id=1125706899]
+[node name="squid_boss" type="StaticBody2D" unique_id=431189097 groups=["boss"]]
+collision_layer = 2048
+collision_mask = 2048
 script = ExtResource("1_msv63")
 
 [node name="re_color" type="Timer" parent="." unique_id=904699185]
@@ -201,7 +203,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="attack2" type="Timer" parent="." unique_id=167025160]
-wait_time = 1.5999999999999999
+wait_time = 1.6
 one_shot = true
 
 [node name="chose_attack" type="Timer" parent="." unique_id=2054417824]
@@ -218,12 +220,18 @@ autoplay = "idle"
 z_index = -1
 position = Vector2(10, 2)
 sprite_frames = SubResource("SpriteFrames_b83wn")
-animation = &"idle"
-frame_progress = 0.7474905
+animation = &"attack"
+frame = 9
+frame_progress = 0.39697278
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351019212]
 position = Vector2(17.5, 3)
 shape = SubResource("RectangleShape2D_ghotr")
+
+[node name="marker_rotation" type="Node2D" parent="." unique_id=1509871219]
+position = Vector2(13, 113)
+
+[node name="Marker2D" type="Marker2D" parent="marker_rotation" unique_id=1100289344]
 
 [connection signal="timeout" from="re_color" to="." method="_on_re_color_timeout"]
 [connection signal="timeout" from="stop_attack" to="." method="_on_stop_attack_timeout"]

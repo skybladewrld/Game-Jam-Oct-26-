@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cwt0lyepvrl0u"]
+
+[ext_resource type="Script" uid="uid://des08cso0t885" path="res://scripts/enemy.gd" id="1_fysq4"]
+[ext_resource type="Texture2D" uid="uid://c7lxgw8m5rrt5" path="res://sprites/speed_shark.png" id="2_fysq4"]
+[ext_resource type="PackedScene" uid="uid://cog65fekxuw45" path="res://sprites/player/ray_cast.tscn" id="3_d8ta4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7vel"]
+size = Vector2(71, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfgfn"]
+atlas = ExtResource("2_fysq4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8ta4"]
+atlas = ExtResource("2_fysq4")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0wo2"]
+atlas = ExtResource("2_fysq4")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oh5ij"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfgfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8ta4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0wo2")
+}],
+"loop": 1,
+"name": &"idle_attack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isfxi"]
+size = Vector2(86, 21)
+
+[node name="shark" type="CharacterBody2D" unique_id=1156742045 node_paths=PackedStringArray("re_color", "stun", "posi_damge", "sprite") groups=["enemy"]]
+collision_layer = 5
+collision_mask = 3
+script = ExtResource("1_fysq4")
+re_color = NodePath("re_color")
+stun = NodePath("stun")
+posi_damge = NodePath("pois_damage")
+sprite = NodePath("AnimatedSprite2D")
+hp = 5.0
+SPEED = 350
+acttack_distance = 300
+duration = 0.5
+type_enemy = 2
+metadata/_custom_type_script = "uid://des08cso0t885"
+
+[node name="hurt" type="CollisionShape2D" parent="." unique_id=1782457800]
+position = Vector2(-2.5, -5)
+shape = SubResource("RectangleShape2D_v7vel")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=670778664]
+sprite_frames = SubResource("SpriteFrames_oh5ij")
+animation = &"idle_attack"
+autoplay = "idle_attack"
+frame_progress = 0.43903086
+offset = Vector2(0, -5)
+
+[node name="attack_range" type="Area2D" parent="." unique_id=1865286212]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_range" unique_id=927549941]
+position = Vector2(-2, -6.5)
+shape = SubResource("RectangleShape2D_isfxi")
+
+[node name="stun" type="Timer" parent="." unique_id=1384076662]
+wait_time = 0.5
+one_shot = true
+
+[node name="pois_damage" type="Timer" parent="." unique_id=954785516]
+wait_time = 1.5
+
+[node name="pos" parent="." unique_id=1788432133 instance=ExtResource("3_d8ta4")]
+visible = false
+
+[node name="re_color" type="Timer" parent="." unique_id=1912514631]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="body_entered" from="attack_range" to="." method="_on_attack_range_body_entered"]
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
+[connection signal="timeout" from="pois_damage" to="." method="_on_pois_damage_timeout"]
+[connection signal="timeout" from="re_color" to="." method="_on_re_color_timeout"]

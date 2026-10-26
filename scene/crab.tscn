@@ -10,6 +10,13 @@ size = Vector2(77, 76)
 script = ExtResource("1_q62mg")
 stun = NodePath("stun")
 posi_damge = NodePath("pois_damage")
+hp = null
+SPEED = null
+acttack_distance = null
+froce = null
+duration = null
+damage = null
+type_enemy = null
 metadata/_custom_type_script = "uid://des08cso0t885"
 
 [node name="attack_range" type="Area2D" parent="." unique_id=1432322602]

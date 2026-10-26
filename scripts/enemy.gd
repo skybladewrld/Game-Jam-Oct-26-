@@ -1,18 +1,19 @@
 extends CharacterBody2D
 class_name enemy
+enum enmy_type {eel , carb , shark}
 
 @export var re_color:Timer
 @export var stun: Timer
 @export var posi_damge : Timer
 @export var sprite: AnimatedSprite2D
 @export var hp: float
-@onready var target  = get_parent().get_node("player")
+@onready var target  = get_parent().get_parent().get_node("player")
 @export var SPEED :int
 @export var acttack_distance:int
 @export var froce :int = 250
 @export var duration :float = 0.1
 @export var damage :int =1
-
+@export var type_enemy :enmy_type
 var knok_back = Vector2(0 , 0)
 var knok_back_timer = 0
 var displacement : Vector2
@@ -22,8 +23,12 @@ func _ready() -> void:
 	posi_damge.start()
 
 func _process(delta: float) -> void:
-	velocity =path_finding()
+#<<<<<<< HEAD
+	velocity = path_finding() 
+	
 
+
+#>>>>>>> 0a8adcf3ebe4186366530aab99ab74c51a27dac7
 	if knok_back_timer > 0:
 		velocity = knok_back
 		knok_back_timer -= delta
@@ -43,14 +48,20 @@ func path_finding() -> Vector2:
 		return Vector2.ZERO
 	if !stun.is_stopped():
 		return Vector2.ZERO
-	look_at(direction)
+	if type_enemy != enmy_type.carb:
+		rotation = direction.angle() + deg_to_rad(-190)
+
 	speed = direction.normalized() * SPEED
 	return speed
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
-	body.applay_knok_back( (target.global_position - position) , 250 , duration)
-	body.color()
-	global.tack_damage(body , damage)
+#<<<<<<< HEAD
+	#if body.is_in_group("player"):
+		body.applay_knok_back( (target.global_position - position) , 350 , duration)
+		body.color()
+	 # why can't I use  varible force 
+		global.tack_damage(body , damage)
+
 
 func applay_knok_back(drirction : Vector2 , force: float , duration):
 	knok_back = drirction.normalized() * force
@@ -64,6 +75,7 @@ func _on_pois_damage_timeout() -> void:
 	if cool_down_pos != 0 :
 		cool_down_pos -= 1
 		global.tack_damage(self ,pois_damage)
+		color()
 
 func _on_re_color_timeout() -> void:
 	modulate = Color(1.0, 1.0, 1.0, 1.0)

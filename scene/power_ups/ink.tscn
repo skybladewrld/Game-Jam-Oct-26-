@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://cwtfuoctdmjbt"]
+
+[ext_resource type="Script" uid="uid://dlm1ocattyuaa" path="res://scripts/collectable.gd" id="1_4uenj"]
+[ext_resource type="Texture2D" uid="uid://cjuk7fciblkyq" path="res://sprites/treasure-liquid.png" id="2_8bxdu"]
+[ext_resource type="AudioStream" uid="uid://di8lr2btreipr" path="res://sfx_real/01_player/collect_upgrade_c.ogg" id="2_vxhkq"]
+[ext_resource type="AudioStream" uid="uid://ci8fp6uoga43u" path="res://sfx_real/01_player/collect_upgrade_a.ogg" id="3_8qj5t"]
+[ext_resource type="AudioStream" uid="uid://kil167yyg4if" path="res://sfx_real/01_player/collect_upgrade_b.ogg" id="5_unrb8"]
+
+[sub_resource type="Animation" id="Animation_wqisj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollectUpgradeB:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_31pug"]
+resource_name = "pick_up"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollectUpgradeB:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_abefd"]
+_data = {
+&"RESET": SubResource("Animation_wqisj"),
+&"pick_up": SubResource("Animation_31pug")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghotr"]
+size = Vector2(47, 44)
+
+[node name="ink" type="StaticBody2D" unique_id=826541028 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_4uenj")
+animation_player = NodePath("AnimationPlayer")
+buff = 3
+metadata/_custom_type_script = "uid://dlm1ocattyuaa"
+
+[node name="CollectUpgradeC" type="AudioStreamPlayer" parent="." unique_id=687150071]
+stream = ExtResource("2_vxhkq")
+
+[node name="CollectUpgradeA" type="AudioStreamPlayer" parent="." unique_id=1164109639]
+stream = ExtResource("3_8qj5t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1918226453]
+libraries/ = SubResource("AnimationLibrary_abefd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=39393046]
+texture = ExtResource("2_8bxdu")
+region_rect = Rect2(32.00003, 0, 42.399994, 128)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=800945388]
+collision_layer = 1024
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1745015511]
+position = Vector2(-1.5, -2)
+shape = SubResource("RectangleShape2D_ghotr")
+
+[node name="CollectUpgradeB" type="AudioStreamPlayer" parent="." unique_id=696945686]
+stream = ExtResource("5_unrb8")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

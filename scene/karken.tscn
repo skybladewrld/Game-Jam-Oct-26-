@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://bfo3uu53glknu"]
+
+[ext_resource type="Script" uid="uid://ckus3qw336h2u" path="res://scripts/karken.gd" id="1_72p2d"]
+[ext_resource type="Texture2D" uid="uid://drs7661gsrxds" path="res://sprites/bosses/krakehead-Sheet.png" id="2_72p2d"]
+[ext_resource type="Texture2D" uid="uid://6qf8k11y77la" path="res://sprites/bosses/krakenhead-phase_2.png" id="3_cyl3i"]
+[ext_resource type="PackedScene" uid="uid://chcm67rblrjvv" path="res://scene/teneclues.tscn" id="4_cyl3i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rllpc"]
+atlas = ExtResource("2_72p2d")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eu3a"]
+atlas = ExtResource("2_72p2d")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aivij"]
+atlas = ExtResource("3_cyl3i")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjuhj"]
+atlas = ExtResource("3_cyl3i")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cyl3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rllpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eu3a")
+}],
+"loop": 1,
+"name": &"attack_pahe_1",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aivij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjuhj")
+}],
+"loop": 1,
+"name": &"attack_pahe_2",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rllpc"]
+size = Vector2(121, 181)
+
+[node name="karken" type="StaticBody2D" unique_id=1212837566]
+script = ExtResource("1_72p2d")
+
+[node name="re_color" type="Timer" parent="." unique_id=1602712497]
+wait_time = 0.2
+one_shot = true
+
+[node name="stop_attack" type="Timer" parent="." unique_id=1614586649]
+wait_time = 2.0
+one_shot = true
+
+[node name="attack2" type="Timer" parent="." unique_id=1997682137]
+wait_time = 1.6
+one_shot = true
+
+[node name="chose_attack" type="Timer" parent="." unique_id=1696291564]
+wait_time = 0.1
+one_shot = true
+
+[node name="boss_face" type="AnimatedSprite2D" parent="." unique_id=1243714709]
+z_index = -1
+position = Vector2(10, 2)
+sprite_frames = SubResource("SpriteFrames_cyl3i")
+animation = &"attack_pahe_2"
+autoplay = "attack_pahe_2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=985895030]
+position = Vector2(1.5, 68.5)
+shape = SubResource("RectangleShape2D_rllpc")
+disabled = true
+
+[node name="teneclues" parent="." unique_id=2084808669 instance=ExtResource("4_cyl3i")]
+position = Vector2(272, 163)
+picked = 1
+
+[node name="teneclues2" parent="." unique_id=1428537465 instance=ExtResource("4_cyl3i")]
+position = Vector2(272, 163)
+angle = 90
+picked = 2
+
+[node name="teneclues3" parent="." unique_id=1872565725 instance=ExtResource("4_cyl3i")]
+position = Vector2(272, 163)
+angle = -90
+picked = 3
+
+[node name="teneclues4" parent="." unique_id=1716768408 instance=ExtResource("4_cyl3i")]
+position = Vector2(272, 163)
+angle = 180
+picked = 4

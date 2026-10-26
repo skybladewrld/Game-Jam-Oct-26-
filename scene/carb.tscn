@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dxf8wuw51jklj"]
+
+[ext_resource type="Script" uid="uid://des08cso0t885" path="res://scripts/enemy.gd" id="1_m3d0t"]
+[ext_resource type="Texture2D" uid="uid://dp2katkhisrqx" path="res://sprites/crab_idel_move.png" id="2_ldvtt"]
+[ext_resource type="PackedScene" uid="uid://cog65fekxuw45" path="res://sprites/player/ray_cast.tscn" id="3_x4r2o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obi4u"]
+size = Vector2(48, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2bfk"]
+atlas = ExtResource("2_ldvtt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4a2b"]
+atlas = ExtResource("2_ldvtt")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5m2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2bfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4a2b")
+}],
+"loop": 1,
+"name": &"idle_attack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1n0l"]
+size = Vector2(53, 38)
+
+[node name="carb" type="CharacterBody2D" unique_id=517280841 node_paths=PackedStringArray("re_color", "stun", "posi_damge", "sprite")]
+collision_layer = 5
+collision_mask = 3
+script = ExtResource("1_m3d0t")
+re_color = NodePath("re_color")
+stun = NodePath("stun")
+posi_damge = NodePath("pois_damage")
+sprite = NodePath("AnimatedSprite2D")
+hp = 6.0
+SPEED = 150
+acttack_distance = 500
+froce = 300
+type_enemy = 1
+metadata/_custom_type_script = "uid://des08cso0t885"
+
+[node name="hurt" type="CollisionShape2D" parent="." unique_id=394869948]
+position = Vector2(-1, 15.5)
+shape = SubResource("RectangleShape2D_obi4u")
+debug_color = Color(0, 0, 0, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1555161922]
+sprite_frames = SubResource("SpriteFrames_p5m2p")
+animation = &"idle_attack"
+autoplay = "idle_attack"
+offset = Vector2(0, 5)
+
+[node name="attack_range" type="Area2D" parent="." unique_id=761050419]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_range" unique_id=343256084]
+position = Vector2(-1.5, 15)
+shape = SubResource("RectangleShape2D_b1n0l")
+
+[node name="stun" type="Timer" parent="." unique_id=1802238674]
+wait_time = 0.5
+one_shot = true
+
+[node name="pois_damage" type="Timer" parent="." unique_id=35018651]
+wait_time = 1.5
+
+[node name="pos" parent="." unique_id=1788432133 instance=ExtResource("3_x4r2o")]
+visible = false
+
+[node name="re_color" type="Timer" parent="." unique_id=1149922363]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="body_entered" from="attack_range" to="." method="_on_attack_range_body_entered"]
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
+[connection signal="timeout" from="pois_damage" to="." method="_on_pois_damage_timeout"]
+[connection signal="timeout" from="re_color" to="." method="_on_re_color_timeout"]

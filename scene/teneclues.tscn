@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://chcm67rblrjvv"]
+
+[ext_resource type="Script" uid="uid://bluyif84n7nc0" path="res://scripts/teneclues.gd" id="1_53vwf"]
+[ext_resource type="Texture2D" uid="uid://cd3vi1dtbb738" path="res://sprites/bosses/Sprite-kraken-Sheet.png" id="1_uca2a"]
+[ext_resource type="Texture2D" uid="uid://clcjq7i0abrvm" path="res://sprites/bosses/tentacleattack-Sheet.png" id="2_53vwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msanb"]
+atlas = ExtResource("1_uca2a")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kfxf"]
+atlas = ExtResource("1_uca2a")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihcpp"]
+atlas = ExtResource("1_uca2a")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thsly"]
+atlas = ExtResource("1_uca2a")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4ivb"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh85f"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1301"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck2tm"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtanf"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uumam"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3ufo"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px5bp"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(2240, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmk03"]
+atlas = ExtResource("2_53vwf")
+region = Rect2(2560, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghotr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msanb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kfxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihcpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thsly")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4ivb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dh85f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1301")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck2tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtanf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uumam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3ufo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px5bp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmk03")
+}],
+"loop": 1,
+"name": &"tenclu_attack",
+"speed": 5.0
+}]
+
+[node name="teneclues" type="CharacterBody2D" unique_id=1505823487]
+script = ExtResource("1_53vwf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1387054609]
+sprite_frames = SubResource("SpriteFrames_ghotr")
+animation = &"tenclu_attack"
+frame = 5
+frame_progress = 0.7242757
+offset = Vector2(0, -155)

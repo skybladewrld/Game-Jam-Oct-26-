@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cog65fekxuw45" path="res://sprites/player/ray_cast.tscn" id="3_r8xgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7vel"]
-size = Vector2(63, 24)
+size = Vector2(48, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0rq4"]
 atlas = ExtResource("2_r8xgy")
@@ -84,10 +84,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isfxi"]
-size = Vector2(77, 33)
+size = Vector2(54, 16)
 
 [node name="ell" type="CharacterBody2D" unique_id=1156742045 node_paths=PackedStringArray("re_color", "stun", "posi_damge", "sprite") groups=["enemy"]]
-collision_layer = 4
+collision_layer = 5
 collision_mask = 3
 script = ExtResource("1_tqq43")
 re_color = NodePath("re_color")
@@ -95,7 +95,7 @@ stun = NodePath("stun")
 posi_damge = NodePath("pois_damage")
 sprite = NodePath("AnimatedSprite2D")
 hp = 5.0
-SPEED = 150
+SPEED = 200
 acttack_distance = 600
 duration = 0.5
 metadata/_custom_type_script = "uid://des08cso0t885"
@@ -105,12 +105,11 @@ shape = SubResource("RectangleShape2D_v7vel")
 debug_color = Color(0, 0, 0, 0.41960785)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=670778664]
-rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_oh5ij")
 animation = &"idle_attack"
 autoplay = "idle_attack"
 frame_progress = 0.43903086
-offset = Vector2(0, 5)
+offset = Vector2(0, -5)
 
 [node name="attack_range" type="Area2D" parent="." unique_id=1865286212]
 collision_layer = 256
